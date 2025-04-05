@@ -3,10 +3,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import Slider from "react-slick";
 import { Helmet } from "react-helmet-async";
+import Modal from "react-modal";
 
 import { Card, CardContent } from "@/components/ui/card";
 import he from "he";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -18,27 +19,42 @@ const fadeIn = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
+Modal.setAppElement("#root"); // ensures accessibility
+
 function HomePage() {
-  const [videos, setVideos] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [activeVideo, setActiveVideo] = useState(null);
+  const [isMinimized, setIsMinimized] = useState(false);
+
+  const presetVideos = [
+    { videoId: "AlYDiQpEzU0", title: "Discord Sings: 'Touchy Feely Fool' by AJR" },
+    { videoId: "19MLacx95So", title: "AJR - The Maybe Man (Album Release Show) | 4K 60FPS" },
+    { videoId: "WyzfA_7uV60", title: "Discord’s Smallest Violin - A Parody" },
+    { videoId: "S0xRO5wR_EU", title: "The Lost AJR Performance at the White House" },
+    { videoId: "ynoNzeajNY0", title: "AJR - One Spectacular Night Overture (Intro/Outro) | Visualizer" },
+    { videoId: "drs-YEnZgss", title: "AJR performs 'Yes I'm A Mess' & 'Burn the House Down' (2024 NHL Stadium Series Performance)" },
+    { videoId: "fr9bNFRu84Y", title: "AJR’s Full Set (LIVE from iHeartRadio’s Jingle Ball 2022)" }
+  ];
+
+  const openModal = (videoId) => {
+    setActiveVideo(videoId);
+    setModalIsOpen(true);
+    setIsMinimized(false);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setActiveVideo(null);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Escape") closeModal();
+    if (e.key === "m") setIsMinimized((prev) => !prev);
+  };
 
   useEffect(() => {
-    const API_KEY = "AIzaSyCwsfq638HVTH3fk2TKJ8cMuyq87AHt7y0";
-    const CHANNEL_ID = "UC8HWVLdFyaeLcDUdAEmPg6g";
-
-    async function fetchVideos() {
-      try {
-        const res = await fetch(
-          `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=10`
-        );
-        const data = await res.json();
-        const videos = data.items?.filter((item) => item.id.videoId) || [];
-        setVideos(videos);
-      } catch (error) {
-        console.error("Error fetching YouTube videos:", error);
-      }
-    }
-
-    fetchVideos();
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   const sliderSettings = {
@@ -50,14 +66,8 @@ function HomePage() {
     autoplay: true,
     autoplaySpeed: 5000,
     responsive: [
-      {
-        breakpoint: 1024,
-        settings: { slidesToShow: 2, slidesToScroll: 1 },
-      },
-      {
-        breakpoint: 640,
-        settings: { slidesToShow: 1, slidesToScroll: 1 },
-      },
+      { breakpoint: 1024, settings: { slidesToShow: 2, slidesToScroll: 1 } },
+      { breakpoint: 640, settings: { slidesToShow: 1, slidesToScroll: 1 } },
     ],
   };
 
@@ -111,40 +121,81 @@ function HomePage() {
         viewport={{ once: true }}
         variants={fadeIn}
       >
-        <h2 className="text-2xl font-bold mb-6 text-white">Latest Videos</h2>
+        <h2 className="text-2xl font-bold mb-6 text-white">Featured Videos</h2>
+        <Slider {...sliderSettings}>
+          {presetVideos.map((video) => (
+            <div
+              key={video.videoId}
+              className="px-2 group cursor-pointer"
+              onClick={() => openModal(video.videoId)}
+            >
+              <Card className="rounded-2xl shadow-xl overflow-hidden bg-[#151515]">
+                <CardContent className="p-0">
+                  <div className="relative aspect-video">
+                    <img
+                      src={`https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`}
+                      alt={video.title}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <svg
+                        className="w-12 h-12 text-white"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <h3 className="text-lg font-semibold text-white">
+                      {video.title}
+                    </h3>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          ))}
+        </Slider>
 
-        {videos.length > 0 ? (
-          <Slider {...sliderSettings}>
-            {videos.map((video) => (
-              <div key={video.id.videoId} className="px-2">
-                <Card className="rounded-2xl shadow-xl overflow-hidden bg-[#151515]">
-                  <CardContent className="p-0">
-                    <div className="aspect-video">
-                      <iframe
-                        loading="lazy"
-                        className="w-full h-full"
-                        src={`https://www.youtube.com/embed/${video.id.videoId}`}
-                        title={he.decode(video.snippet.title)}
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      ></iframe>
-                    </div>
-                    <div className="p-4">
-                      <h3 className="text-lg font-semibold text-white">
-                        {he.decode(video.snippet.title)}
-                      </h3>
-                    </div>
-                  </CardContent>
-                </Card>
+        <AnimatePresence>
+          {modalIsOpen && activeVideo && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.3 }}
+              className={`fixed z-50 bg-black shadow-xl transition-all duration-300 rounded-lg overflow-hidden ${
+                isMinimized
+                  ? "bottom-4 right-4 w-72 h-40"
+                  : "inset-0 flex items-center justify-center bg-black/80 p-4"
+              }`}
+            >
+              <div className="relative w-full h-full min-w-[300px] min-h-[180px]">
+                <iframe
+                  className="w-full h-full"
+                  src={`https://www.youtube.com/embed/${activeVideo}?autoplay=1`}
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+                <button
+                  onClick={closeModal}
+                  className="absolute top-2 right-2 text-white text-xl z-10"
+                >
+                  &times;
+                </button>
+                <button
+                  onClick={() => setIsMinimized(!isMinimized)}
+                  className="absolute top-2 left-2 text-white text-sm bg-black/50 px-2 py-1 rounded z-10"
+                >
+                  {isMinimized ? "Maximize" : "Minimize"}
+                </button>
               </div>
-            ))}
-          </Slider>
-        ) : (
-          <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-white/50"></div>
-          </div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.section>
 
       <motion.section
