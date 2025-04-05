@@ -31,15 +31,24 @@ export default function CreatorWebsite() {
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
+    const API_KEY = "AIzaSyCwsfq638HVTH3fk2TKJ8cMuyq87AHt7y0";
+    const CHANNEL_ID = "UC8HWVLdFyaeLcDUdAEmPg6g";
+
     async function fetchVideos() {
-      const res = await fetch("/api/youtube");
-      const data = await res.json();
-      const videos = data.items.filter((item) => item.id.videoId);
-      setVideos(videos);
+      try {
+        const res = await fetch(
+          `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=10`
+        );
+        const data = await res.json();
+        const videos = data.items?.filter((item) => item.id.videoId) || [];
+        setVideos(videos);
+      } catch (error) {
+        console.error("Error fetching YouTube videos:", error);
+      }
     }
-  
+
     fetchVideos();
-  }, []);  
+  }, []);
 
   const sliderSettings = {
     dots: true,
@@ -308,4 +317,3 @@ function SocialLinks() {
     </>
   );
 }
-
