@@ -94,8 +94,8 @@ const DiscordPage = () => {
             </div>
 
             <div className="bg-gray-900 p-6 rounded-xl shadow-md">
-              <h3 className="font-semibold text-lg mb-2">📰 Fastest AJR news</h3>
-              <p>The quickest place for AJR news online!</p>
+              <h3 className="font-semibold text-lg mb-2">📰 The fastest AJR news out there</h3>
+              <p>One of the quickest place for AJR news online other than AJR themselves!</p>
             </div>
 
             <div className="bg-gray-900 p-6 rounded-xl shadow-md">
