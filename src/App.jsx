@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -27,7 +28,7 @@ const fadeIn = {
 
 const MotionLink = motion.a;
 
-export default function CreatorWebsite() {
+function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [videos, setVideos] = useState([]);
 
@@ -93,6 +94,7 @@ export default function CreatorWebsite() {
 
           <nav className="hidden md:flex flex-wrap gap-3 justify-center">
             <SocialLinks />
+            <Link to="/discord" className="text-white px-4 py-2 hover:underline">Discord Page</Link>
           </nav>
 
           <AnimatePresence>
@@ -106,6 +108,7 @@ export default function CreatorWebsite() {
                 className="absolute top-full left-0 w-full bg-[#0a0a0a] py-4 shadow-xl flex flex-col items-center gap-3 md:hidden"
               >
                 <SocialLinks />
+                <Link to="/discord" className="text-white px-4 py-2 hover:underline">Discord Page</Link>
               </motion.div>
             )}
           </AnimatePresence>
@@ -290,12 +293,27 @@ export default function CreatorWebsite() {
   );
 }
 
+function DiscordPage() {
+  return (
+    <div className="text-white text-center pt-20">
+      <h1 className="text-4xl font-bold mb-4">Join the AJREarlyReleases Discord</h1>
+      <p className="text-lg">Connect with fellow AJR fans at the largest Discord server for fans of the band!</p>
+      <a
+        href="https://discord.gg/AJR"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-6 inline-block bg-indigo-600 text-white py-2 px-4 rounded-full hover:bg-indigo-500 transition"
+      >
+        Join Now
+      </a>
+    </div>
+  );
+}
+
 function SocialLink({ href, icon, label }) {
   return (
     <MotionLink
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
+      to={href} // now handled as a route if it's internal
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       className="flex items-center gap-2 px-4 py-2 border border-white/10 bg-white/5 rounded-full hover:bg-white/10 transition-all"
@@ -309,7 +327,7 @@ function SocialLink({ href, icon, label }) {
 function SocialLinks() {
   return (
     <>
-      <SocialLink href="https://discord.gg/AJR" icon={faDiscord} label="Discord" />
+      <SocialLink href="/discord" icon={faDiscord} label="Discord" />
       <SocialLink href="https://twitter.com/ajrearlyrelz" icon={faTwitter} label="Twitter/X" />
       <SocialLink href="https://instagram.com/AJREarlyReleases" icon={faInstagram} label="Instagram" />
       <SocialLink href="https://tiktok.com/@AJREarlyReleases" icon={faTiktok} label="TikTok" />
@@ -318,3 +336,22 @@ function SocialLinks() {
     </>
   );
 }
+
+function WrappedApp() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/discord" element={<DiscordPage />} />
+    </Routes>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <WrappedApp />
+    </Router>
+  );
+}
+
+export default App;
