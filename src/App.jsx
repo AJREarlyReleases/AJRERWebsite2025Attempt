@@ -32,23 +32,14 @@ export default function CreatorWebsite() {
 
   useEffect(() => {
     async function fetchVideos() {
-      const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY; // 🔑 Replace this
-      const CHANNEL_ID = process.env.REACT_APP_CHANNEL_ID; // 📺 Replace this
-
-      try {
-        const res = await fetch(
-          `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=10`
-        );
-        const data = await res.json();
-        const videoItems = data.items.filter((item) => item.id.videoId);
-        setVideos(videoItems);
-      } catch (err) {
-        console.error("Error fetching YouTube videos:", err);
-      }
+      const res = await fetch("/api/youtube");
+      const data = await res.json();
+      const videos = data.items.filter((item) => item.id.videoId);
+      setVideos(videos);
     }
-
+  
     fetchVideos();
-  }, []);
+  }, []);  
 
   const sliderSettings = {
     dots: true,
@@ -255,7 +246,7 @@ export default function CreatorWebsite() {
               />
               <p className="text-sm text-white/60 max-w-xs">
                 AJREarlyReleases is the largest fan-driven account dedicated to celebrating AJR content,
-                sharing the latest updates, sneak peeks, concert videos,and merch drops. For fans, by a fan.
+                sharing the latest updates, sneak peeks, concert videos, and more. For fans, by a fan.
               </p>
             </div>
 
