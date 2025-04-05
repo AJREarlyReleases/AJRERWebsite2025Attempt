@@ -1,12 +1,12 @@
-# React + Vite
+# AJREarlyReleases Website (2025 Attempt)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository intends to host the website for the social-media account "AJREarlyReleases", and will be hosted onto https://ajrer.com.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Overview
 
-## Expanding the ESLint configuration
+https://ajrer.com intends to become the website that showcases the social media accounts as well as updates from AJREarlyReleases and its associated brand of accounts.
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Notes
+
+This is partially being developed with the help of templates via React + Vite as well as coding via Copilot and ChatGPT Plus.
