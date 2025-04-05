@@ -118,6 +118,23 @@ const DiscordPage = () => {
               <li>A welcoming place for all fans new and old 🤝</li>
             </ul>
           </section>
+
+          <section id="rules" className="bg-gray-800 p-6 rounded-xl">
+            <h2 className="text-xl font-bold mb-4">Server Rules</h2>
+            <ul className="list-disc list-inside text-gray-300 space-y-1">
+              <li>Follow Discord's TOS at all times.</li>
+              <li>Be respectful/courteous to all members and to other servers.</li>
+              <li>No advertising/promotion is allowed.</li>
+              <li>No NSFW content.</li>
+              <li>No spamming and/or misusing channels.</li>
+              <li>Refrain from discussing sensitive/disturbing/controversial topics.</li>
+              <li>No malicious content.</li>
+              <li>No piracy allowed.</li>
+              <li>No impersonation of other members.</li>
+              <li>No misinformation allowed.</li>
+              <li>Miscellaneous: circumventing rules, usage of alt accounts, etc.</li>
+            </ul>
+          </section>
         </div>
       </div>
     </Layout>
