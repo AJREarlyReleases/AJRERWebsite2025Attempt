@@ -32,8 +32,8 @@ export default function CreatorWebsite() {
 
   useEffect(() => {
     async function fetchVideos() {
-      const API_KEY = "YOUR_YOUTUBE_API_KEY"; // 🔑 Replace this
-      const CHANNEL_ID = "YOUR_CHANNEL_ID"; // 📺 Replace this
+      const API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY; // 🔑 Replace this
+      const CHANNEL_ID = process.env.REACT_APP_CHANNEL_ID; // 📺 Replace this
 
       try {
         const res = await fetch(
@@ -272,7 +272,7 @@ export default function CreatorWebsite() {
             <div>
               <h4 className="text-lg font-semibold mb-4">Connect</h4>
               <ul className="space-y-2 text-white/80">
-                <li><a href="mailto:ajrearlyreleases1@gmail.com" className="hover:underline">Email Us</a></li>
+                <li><a href="mailto:contact@ajrer.com" className="hover:underline">Email Us</a></li>
                 <li><a href="https://discord.gg/AJR" target="_blank" rel="noopener noreferrer" className="hover:underline"> Discord</a></li>
                 <li><a href="https://twitter.com/ajrearlyrelz" target="_blank" rel="noopener noreferrer" className="hover:underline">Twitter/X</a></li>
                 <li><a href="https://youtube.com/@AJREarlyReleases" target="_blank" rel="noopener noreferrer" className="hover:underline">YouTube</a></li>
