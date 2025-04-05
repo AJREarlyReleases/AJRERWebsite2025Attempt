@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
+import Slider from "react-slick";
+
 import { Card, CardContent } from "@/components/ui/card";
 import he from "he";
 import { motion } from "framer-motion";
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -206,9 +208,11 @@ function WrappedApp() {
 
 function App() {
   return (
-    <Router>
-      <WrappedApp />
-    </Router>
+    <HelmetProvider>
+      <Router>
+        <WrappedApp />
+      </Router>
+    </HelmetProvider>
   );
 }
 
