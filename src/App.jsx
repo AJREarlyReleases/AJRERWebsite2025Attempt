@@ -18,6 +18,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import he from "he";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
@@ -161,7 +162,7 @@ export default function CreatorWebsite() {
                           loading="lazy"
                           className="w-full h-full"
                           src={`https://www.youtube.com/embed/${video.id.videoId}`}
-                          title={video.snippet.title}
+                          title={he.decode(video.snippet.title)}
                           frameBorder="0"
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen
@@ -169,7 +170,7 @@ export default function CreatorWebsite() {
                       </div>
                       <div className="p-4">
                         <h3 className="text-lg font-semibold text-white">
-                          {video.snippet.title}
+                          {he.decode(video.snippet.title)}
                         </h3>
                       </div>
                     </CardContent>
