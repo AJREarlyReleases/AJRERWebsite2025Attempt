@@ -31,7 +31,7 @@ const DiscordPage = () => {
   return (
     <Layout>
       <Helmet>
-        <title>Join the AJREarlyReleases Discord</title>
+        <title>Join the AJRER Discord</title>
         <meta name="description" content="Connect with AJR fans on the official AJREarlyReleases Discord server. Chat, share content, and stay updated." />
         <meta property="og:title" content="AJREarlyReleases Discord" />
         <meta property="og:description" content="Join the largest AJR fan-made Discord community." />

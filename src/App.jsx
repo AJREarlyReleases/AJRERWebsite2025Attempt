@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import Slider from "react-slick";
+import { Helmet } from "react-helmet-async";
 
 import { Card, CardContent } from "@/components/ui/card";
 import he from "he";
@@ -62,6 +63,19 @@ function HomePage() {
 
   return (
     <Layout>
+      <Helmet>
+        <title>AJREarlyReleases</title>
+        <meta name="description" content="AJREarlyReleases is a fan-driven account dedicated to celebrating AJR content." />
+        <meta property="og:title" content="AJREarlyReleases" />
+        <meta property="og:description" content="AJREarlyReleases is a fan-driven account dedicated to celebrating AJR content." />
+        <meta property="og:image" content="https://ajrer.com/meta-cover.PNG" />
+        <meta property="og:url" content="https://ajrer.com" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="AJREarlyReleases" />
+        <meta name="twitter:description" content="AJREarlyReleases is a fan-driven account dedicated to celebrating AJR content." />
+        <meta name="twitter:image" content="https://ajrer.com/meta-cover.PNG" />
+      </Helmet>
+
       <motion.section
         id="home"
         className="relative py-28 px-4 overflow-hidden flex items-center justify-center text-center"
