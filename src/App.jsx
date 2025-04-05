@@ -255,7 +255,7 @@ export default function CreatorWebsite() {
               />
               <p className="text-sm text-white/60 max-w-xs">
                 AJREarlyReleases is the largest fan-driven account dedicated to celebrating AJR content,
-                sharing the latest updates, sneak peeks, concert videos, and more. For fans, by a fan.
+                sharing the latest updates, sneak peeks, concert videos,and merch drops. For fans, by a fan.
               </p>
             </div>
 
