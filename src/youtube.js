@@ -1,6 +1,6 @@
 export async function onRequest(context) {
-    const API_KEY = context.env.YOUTUBE_API_KEY;
-    const CHANNEL_ID = context.env.CHANNEL_ID;
+    const API_KEY = AIzaSyCwsfq638HVTH3fk2TKJ8cMuyq87AHt7y0;
+    const CHANNEL_ID = UC8HWVLdFyaeLcDUdAEmPg6g;
   
     const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=5`;
   

@@ -18,6 +18,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { fetchYouTubeVideos } from "./youtube";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
@@ -31,15 +32,13 @@ export default function CreatorWebsite() {
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
-    async function fetchVideos() {
-      const res = await fetch("/api/youtube");
-      const data = await res.json();
-      const videos = data.items.filter((item) => item.id.videoId);
-      setVideos(videos);
+    async function loadVideos() {
+      const vids = await fetchYouTubeVideos();
+      setVideos(vids);
     }
-  
-    fetchVideos();
-  }, []);  
+
+    loadVideos();
+  }, []);
 
   const sliderSettings = {
     dots: true,
