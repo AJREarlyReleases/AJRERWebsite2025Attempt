@@ -20,10 +20,10 @@ const Footer = () => {
         <div>
           <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
           <ul className="space-y-2 text-white/80">
-            <li><a href="#home" className="hover:underline">Home</a></li>
-            <li><a href="#videos" className="hover:underline">Featured Videos</a></li>
-            <li><a href="#shop" className="hover:underline">Merch</a></li>
-            <li><a href="#about" className="hover:underline">About</a></li>
+            <li><a href="/#home" className="hover:underline">Home</a></li>
+            <li><a href="/#videos" className="hover:underline">Featured Videos</a></li>
+            <li><a href="/#shop" className="hover:underline">Merch</a></li>
+            <li><a href="/#about" className="hover:underline">About</a></li>
           </ul>
         </div>
 
