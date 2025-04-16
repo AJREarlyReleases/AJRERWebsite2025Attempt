@@ -22,7 +22,15 @@ const Footer = () => {
           <ul className="space-y-2 text-white/80">
             <li><a href="/#home" className="hover:underline">Home</a></li>
             <li><a href="/#videos" className="hover:underline">Featured Videos</a></li>
-            <li><a href="/#shop" className="hover:underline">Merch</a></li>
+            <li>
+              <a
+                href="https://shop.ajrer.com"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                Merch
+              </a>
+            </li>
             <li><a href="/#about" className="hover:underline">About</a></li>
           </ul>
         </div>

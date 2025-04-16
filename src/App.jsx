@@ -57,7 +57,28 @@ function HomePage() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  const sliderSettings = {
+  const merchItems = [
+    {
+      id: 1,
+      name: "Eyeroll Timoji Plushie",
+      image: "https://shop.ajrer.com/cdn/shop/files/17821556653036785784_2048.jpg",
+      url: "https://shop.ajrer.com/products/eyeroll-timoji-plushie",
+    },
+    {
+      id: 2,
+      name: "The Timoji Sticker Pack (First Generation)",
+      image: "https://shop.ajrer.com/cdn/shop/files/2937283496686133020_2048.jpg",
+      url: "https://shop.ajrer.com/products/the-timoji-sticker-pack-first-generation",
+    },
+    {
+      id: 3,
+      name: "Shushing Timoji Sticker",
+      image: "https://shop.ajrer.com/cdn/shop/files/15556989263249797231_1200.jpg",
+      url: "https://shop.ajrer.com/products/the-shushing-timoji-sticker",
+    },
+  ];  
+
+  const videoSliderSettings = {
     dots: true,
     infinite: true,
     speed: 500,
@@ -65,11 +86,18 @@ function HomePage() {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 5000,
+    arrows: true,
     responsive: [
       { breakpoint: 1024, settings: { slidesToShow: 2, slidesToScroll: 1 } },
       { breakpoint: 640, settings: { slidesToShow: 1, slidesToScroll: 1 } },
     ],
   };
+  
+  const merchSliderSettings = {
+    ...videoSliderSettings,
+    arrows: false, // override
+    autoplay: false, // disable auto-scroll
+  };  
 
   return (
     <Layout>
@@ -122,7 +150,7 @@ function HomePage() {
         variants={fadeIn}
       >
         <h2 className="text-2xl font-bold mb-6 text-white">Featured Videos</h2>
-        <Slider {...sliderSettings}>
+        <Slider {...videoSliderSettings}>
           {presetVideos.map((video) => (
             <div
               key={video.videoId}
@@ -207,16 +235,32 @@ function HomePage() {
         variants={fadeIn}
       >
         <h2 className="text-2xl font-bold mb-6 text-white">Merch Highlights</h2>
-        <div className="grid grid-cols-1 gap-6">
-          <div className="bg-[#151515] p-4 rounded-2xl shadow-xl overflow-hidden">
-            <iframe
-              src="https://shop.ajrer.com/collections/frontpage"
-              title="AJRER Shopify"
-              className="w-full h-[600px] rounded-xl border-0"
-              loading="lazy"
-            ></iframe>
-          </div>
-        </div>
+        <Slider {...merchSliderSettings}>
+          {merchItems.map((item) => (
+            <div
+              key={item.id}
+              className="px-2 group cursor-pointer"
+            >
+              <a href={item.url} target="_blank" rel="noopener noreferrer">
+                <Card className="rounded-2xl shadow-xl overflow-hidden bg-[#151515] transition-transform duration-300 group-hover:scale-105">
+                  <CardContent className="p-0">
+                    <div className="relative aspect-video">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="p-4">
+                      <h3 className="text-lg font-semibold text-white text-center">{item.name}</h3>
+                    </div>
+                  </CardContent>
+                </Card>
+              </a>
+            </div>
+          ))}
+        </Slider>
+
       </motion.section>
 
       <motion.section
